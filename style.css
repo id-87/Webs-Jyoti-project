@@ -1,0 +1,138 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    color: #5f6368;
+    background: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+header h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin: 32px 0 16px 0;
+    color: #1976d2;
+}
+
+.training-modules {
+    background: #f8fafd;
+    padding: 60px 20px 40px 20px;
+    text-align: center;
+}
+.training-modules h2 {
+    font-size: 2.2rem;
+    margin-bottom: 40px;
+    color: #1976d2;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+.modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.module-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(25, 118, 210, 0.08), 0 1.5px 4px rgba(34,34,59,0.04);
+    padding: 32px 24px 24px 24px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 320px;
+}
+.module-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 8px 32px rgba(25, 118, 210, 0.12), 0 2px 8px rgba(34,34,59,0.06);
+}
+.module-card h3 {
+    font-size: 1.4rem;
+    color: #1976d2;
+    margin-bottom: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.module-card p {
+    color: #5f6368;
+    font-size: 1.08rem;
+    margin-bottom: 18px;
+    flex: 1;
+    text-align: left;
+}
+.duration {
+    display: block;
+    color: #22223b;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+.read-more-btn {
+    display: inline-block;
+    background: #f5faff;
+    color: #1976d2;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 10px 28px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.06);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    margin-top: 8px;
+    text-decoration: none;
+}
+.read-more-btn:hover {
+    background: #1976d2;
+    color: #fff;
+}
+footer p {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #555;
+    margin: 32px 0 0 0;
+    text-align: center;
+}
+@media (max-width: 600px) {
+    .training-modules {
+        padding: 40px 5px 20px 5px;
+    }
+    .modules-grid {
+        gap: 18px;
+    }
+    .module-card {
+        padding: 20px 10px 16px 10px;
+        min-height: 220px;
+    }
+    .training-modules h2 {
+        font-size: 1.3rem;
+    }
+}
+.module-icon {
+    color: #1976d2;
+    font-size: 2rem;
+    margin-right: 6px;
+    display: inline-flex;
+    align-items: center;
+}
+/* Center the Soft Skills card if it's the only card in the last row (for 4 cards) */
+.modules-grid {
+    /* existing grid styles */
+}
+.center-card {
+    justify-self: center;
+    /* For 4 cards, center the last card on larger screens */
+    grid-column: span 1;
+}
+@media (min-width: 900px) {
+    .modules-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .center-card:nth-child(4) {
+        grid-column: 2 / 3;
+    }
+}
