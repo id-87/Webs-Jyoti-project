@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Webs Jyoti Training Locations</title>
+  <link rel="stylesheet" href="locations.css" />
+</head>
+<body>
+  <header>
+    <h1>Webs Jyoti Training Centers</h1>
+    <p>Advance Excel, SQL, VBA & Power BI Training</p>
+  </header>
+
+  <div class="card-container">
+    <!-- Top 4 cards -->
+    <div class="card" onclick="showDetails('Lucknow')">
+      <img src="https://www.rishita.in/uploads/blog/5%20best%20posh%20localities%20in%20lucknow" alt="Lucknow">
+      <h2>Lucknow</h2>
+    </div>
+    <div class="card" onclick="showDetails('Chandigarh')">
+      <img src="https://citcochandigarh.com/wp-content/uploads/2021/03/Chandigarh-the-city-beautiful-1.jpg" alt="Chandigarh">
+      <h2>Chandigarh</h2>
+    </div>
+    <div class="card" onclick="showDetails('Kanpur')">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/J.K._Temple.jpg" alt="Kanpur">
+      <h2>Kanpur</h2>
+    </div>
+    <div class="card" onclick="showDetails('Faridabad')">
+      <img src="https://travelsetu.com/apps/uploads/new_destinations_photos/destination/2024/01/08/31b9e9fe372cd3caa49ffb32b28a1abb_400x400.jpg" alt="Faridabad">
+      <h2>Faridabad</h2>
+    </div>
+  </div>
+
+  <!-- Lower 3 cards centered -->
+  <div class="card-container lower-cards">
+    <div class="card" onclick="showDetails('Hyderabad')">
+      <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/98/f7/df/charminar.jpg?w=600&h=500&s=1" alt="Hyderabad">
+      <h2>Hyderabad</h2>
+    </div>
+    <div class="card" onclick="showDetails('Chennai')">
+      <img src="https://www.godigit.com/content/dam/godigit/directportal/en/contenthm/mgr-film.jpg" alt="Chennai">
+      <h2>Chennai</h2>
+    </div>
+    <div class="card" onclick="showDetails('Bhopal')">
+      <img src="https://www.indian-travel-places.com/wp-content/uploads/2022/05/bhopal-660x330.jpg" alt="Bhopal">
+      <h2>Bhopal</h2>
+    </div>
+  </div>
+
+  <!-- Popup -->
+  <div class="popup-overlay" id="popup">
+    <div class="popup-content popup-animate">
+      <span class="close-btn" onclick="hideDetails()">×</span>
+      <img id="popup-image" src="" alt="City Image">
+      <div id="popup-details"></div>
+    </div>
+  </div>
+
+  <script>
+    const popup = document.getElementById("popup");
+    const detailsDiv = document.getElementById("popup-details");
+    const popupImg = document.getElementById("popup-image");
+
+    const cityData = {
+      Lucknow: {
+        image: "https://www.rishita.in/uploads/blog/5%20best%20posh%20localities%20in%20lucknow",
+        content: `
+          <h2>Lucknow Training Center</h2>
+          <p><strong>Trainer:</strong> Hirdesh Bhardwaj, 17+ Years of Experience</p>
+          <p>Advanced Excel, VBA, SQL & Power BI training for 6 months</p>
+          <p>Includes dashboard design, PivotTables, Index-Match, Macros, DAX, and more</p>
+          <p>Mode: Online/Offline | Small Batches | Placement Assistance</p>
+          <p>Call: +91-8802000175</p>
+        `
+      },
+      Chandigarh: {
+        image: "https://citcochandigarh.com/wp-content/uploads/2021/03/Chandigarh-the-city-beautiful-1.jpg",
+        content: `
+          <h2>Chandigarh Training Center</h2>
+          <p><strong>Trainer:</strong> Hirdesh Bhardwaj</p>
+          <p>6-month Data Analytics course with Excel, SQL, Macros & BI</p>
+          <p>Flexible timings (Weekday & Weekend)</p>
+          <p>Live sessions | Real-world assignments | Certification</p>
+          <p>Call: +91-8802000175</p>
+        `
+      },
+      Kanpur: {
+        image: "https://upload.wikimedia.org/wikipedia/commons/7/7d/J.K._Temple.jpg",
+        content: `
+          <h2>Kanpur Training Center</h2>
+          <p>Learn Excel automation, advanced formulas, VBA, and Power BI</p>
+          <p>Batch Size: Max 8 | Job-oriented training with real projects</p>
+          <p>Mode: Online Virtual Sessions</p>
+          <p>Trainer: Hirdesh Bhardwaj</p>
+          <p>Call: +91-8802000175</p>
+        `
+      },
+      Faridabad: {
+        image: "https://travelsetu.com/apps/uploads/new_destinations_photos/destination/2024/01/08/31b9e9fe372cd3caa49ffb32b28a1abb_400x400.jpg",
+        content: `
+          <h2>Faridabad Training Center</h2>
+          <p>Advanced Data Analytics Program (6 Months)</p>
+          <p>Excel Dashboards, Custom Reports, Power Query, SQL Reporting</p>
+          <p>Trainer-led Live Sessions + Support</p>
+          <p>Call: +91-8802000175</p>
+        `
+      },
+      Hyderabad: {
+        image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/98/f7/df/charminar.jpg?w=600&h=500&s=1",
+        content: `
+          <h2>Hyderabad Training Center</h2>
+          <p>Power BI, Excel VBA, SQL – End-to-end Data Analytics Course</p>
+          <p>Real-life case studies & dashboards</p>
+          <p>Live Sessions + Certification + Placement Support</p>
+          <p>Trainer: Hirdesh Bhardwaj</p>
+          <p>Call: +91-8802000175</p>
+        `
+      },
+      Chennai: {
+        image: "https://www.godigit.com/content/dam/godigit/directportal/en/contenthm/mgr-film.jpg",
+        content: `
+          <h2>Chennai Training Center</h2>
+          <p>Macros, Pivot Charts, SQL Joins, Power BI Modeling</p>
+          <p>Interactive Assignments | Personalized Guidance</p>
+          <p>Corporate-level hands-on training</p>
+          <p>Call: +91-8802000175</p>
+        `
+      },
+      Bhopal: {
+        image: "https://www.indian-travel-places.com/wp-content/uploads/2022/05/bhopal-660x330.jpg",
+        content: `
+          <h2>Bhopal Training Center</h2>
+          <p>Excel + VBA + SQL + BI Full Stack Course</p>
+          <p>6 Months | Online/Offline | Small Batches</p>
+          <p>Tools: Power Query, Pivot, Array Formulas, DAX</p>
+          <p>Trainer: Hirdesh Bhardwaj</p>
+          <p>Call: +91-8802000175</p>
+        `
+      }
+    };
+
+    function showDetails(city) {
+      popupImg.src = cityData[city].image;
+      detailsDiv.innerHTML = cityData[city].content;
+      popup.style.display = "flex";
+      setTimeout(() => {
+        document.querySelector(".popup-content").classList.add("popup-show");
+      }, 10);
+    }
+
+    function hideDetails() {
+      document.querySelector(".popup-content").classList.remove("popup-show");
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 300);
+    }
+  </script>
+</body>
+</html>
