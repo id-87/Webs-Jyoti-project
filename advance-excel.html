@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+     <div id="navbar"></div>
     <header>
         <div class="container">
             <h1>WJ Corporate Training</h1>
@@ -326,5 +327,22 @@
             </aside>
         </div>
     </main>
+     <div id="footer"></div>
+
+  <script>
+    // Load navbar
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      });
+
+    // Load footer
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      });
+  </script>
 </body>
 </html> 
