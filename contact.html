@@ -111,6 +111,7 @@
     </style>
   </head>
   <body>
+    <div id="navbar-include"></div>
     <div class="container px-3 px-md-4">
       <div class="contact-wrapper">
         <!-- Header -->
@@ -288,5 +289,30 @@
         </div>
       </div>
     </div>
+    <div id="footer-include"></div>
+
+    <script>
+      function includeHTML() {
+        var z, i, elmnt, file, xhttp;
+        z = document.querySelectorAll('[data-include-html]');
+        for (i = 0; i < z.length; i++) {
+          elmnt = z[i];
+          file = elmnt.getAttribute('data-include-html');
+          if (file) {
+            fetch(file)
+              .then(response => response.text())
+              .then(data => {
+                elmnt.innerHTML = data;
+                elmnt.removeAttribute('data-include-html');
+                includeHTML();
+              });
+            return;
+          }
+        }
+      }
+      document.getElementById('navbar-include').setAttribute('data-include-html', 'navbar.html');
+      document.getElementById('footer-include').setAttribute('data-include-html', 'footer.html');
+      includeHTML();
+    </script>
   </body>
 </html>
