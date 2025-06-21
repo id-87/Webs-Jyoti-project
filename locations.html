@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="locations.css" />
 </head>
 <body>
+  <div id="navbar"></div>
   <header>
     <h1>Webs Jyoti Training Centers</h1>
     <p>Advance Excel, SQL, VBA & Power BI Training</p>
@@ -155,6 +156,23 @@
         popup.style.display = "none";
       }, 300);
     }
+  </script>
+  <div id="footer"></div>
+
+  <script>
+    // Load navbar
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      });
+
+    // Load footer
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      });
   </script>
 </body>
 </html>
