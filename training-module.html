@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div id="navbar"></div>
     <header>
         <h1 style="text-align: center;">Welcome to WJ Corporate Training</h1>
     </header>
@@ -43,8 +44,22 @@
             </div>
         </div>
     </section>
-    <footer>
-        <p>&copy; 2024 WJ Corporate Training. All rights reserved.</p>
-    </footer>
+    <div id="footer"></div>
+
+  <script>
+    // Load navbar
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      });
+
+    // Load footer
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      });
+  </script>
 </body>
 </html>
