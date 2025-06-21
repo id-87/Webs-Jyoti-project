@@ -550,6 +550,29 @@
         .text-primary-custom {
             color: var(--primary-color) !important;
         }
+
+        #testimonial-content {
+            position: relative;
+            min-height: 350px;
+        }
+        .testimonial-item {
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
+            z-index: 1;
+        }
+        .testimonial-item.active, .testimonial-item.fade-in {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 2;
+        }
+        .testimonial-item.fade-out {
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
@@ -1057,45 +1080,75 @@
     <section class="testimonials-section py-5" style="background: linear-gradient(to right, #f6faff, #eaf1f9);">
   <div class="container">
     <h2 class="text-center fw-bold mb-5" style="font-size: 2.4rem; color: #002244;">
-      What People Say About Our Training!
+      What people say about training program!
     </h2>
 
     <div class="row justify-content-center">
       <div class="col-lg-8">
-        <div class="p-4 p-md-5 rounded-4 shadow-lg text-center"
+        <div id="testimonial-carousel" class="p-4 p-md-5 rounded-4 shadow-lg text-center"
              style="background: #ffffffee; backdrop-filter: blur(6px); border: 1px solid #dee2e6; position: relative;">
 
           <!-- Quote Icon -->
           <i class="fas fa-quote-left"
              style="position: absolute; top: -20px; left: 20px; font-size: 2rem; color: #d1d8e0;"></i>
 
-          <!-- User Image -->
-          <div class="mb-4">
-            <img src="https://exceltraininggurgaon.in/img/testimonial-2.webp"
-                 alt="User"
-                 class="rounded-circle shadow"
-                 style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #ffffff;">
-          </div>
-
-          <!-- Testimonial Text -->
-          <p style="font-size: 1.1rem; color: #333; line-height: 1.8;">
-            "I highly recommend <strong>Mr. Hirdesh Bhardwaj</strong>. He was my mentor and teacher in New Delhi at his institute. I got a chance to work closely with him on several projects. Hirdesh possesses key skills in management and data analytics, beneficial for all IT organizations aiming to succeed in this domain."
-          </p>
-
-          <!-- Author Info -->
-          <div class="mt-4">
-            <h5 class="fw-bold mb-1" style="color: #002244;">Serigne Ndiaye</h5>
-            <p class="text-muted mb-0">Sr Business Consultant</p>
+          <!-- Testimonial Content (JS will swap these) -->
+          <div id="testimonial-content">
+            <div class="testimonial-item active">
+              <div class="mb-4">
+                <img src="https://exceltraininggurgaon.in/img/testimonial-2.webp"
+                     alt="User"
+                     class="rounded-circle shadow"
+                     style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #ffffff;">
+              </div>
+              <p style="font-size: 1.1rem; color: #333; line-height: 1.8;">
+                "I highly recommend <strong>Mr. Hirdesh Bhardwaj</strong>. He was my mentor and teacher in New Delhi at his institute. I got a chance to work closely with him on several projects. Hirdesh possesses key skills in management and data analytics, beneficial for all IT organizations aiming to succeed in this domain."
+              </p>
+              <div class="mt-4">
+                <h5 class="fw-bold mb-1" style="color: #002244;">Serigne Ndiaye</h5>
+                <p class="text-muted mb-0">Sr Business Consultant</p>
+              </div>
+            </div>
+            <div class="testimonial-item">
+              <div class="mb-4">
+                <img src="https://exceltraininggurgaon.in/img/testimonial-3.webp"
+                     alt="User"
+                     class="rounded-circle shadow"
+                     style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #ffffff;">
+              </div>
+              <p style="font-size: 1.1rem; color: #333; line-height: 1.8;">
+                "Very passionate and enthusiastic trainer in SQL and data science. Love the way of his teaching style and dedication towards learners. His contribution of several books in the IT world is unforgettable."
+              </p>
+              <div class="mt-4">
+                <h5 class="fw-bold mb-1" style="color: #002244;">Roni Jeffy Salomo</h5>
+                <p class="text-muted mb-0">BD enthusiast</p>
+              </div>
+            </div>
+            <div class="testimonial-item">
+              <div class="mb-4">
+                <img src="https://exceltraininggurgaon.in/img/testimonial-1.webp"
+                     alt="User"
+                     class="rounded-circle shadow"
+                     style="width: 90px; height: 90px; object-fit: cover; border: 3px solid #ffffff;">
+              </div>
+              <p style="font-size: 1.1rem; color: #333; line-height: 1.8;">
+                "Hirdesh conducted a number of advanced xl training for FIA. He would explain the concept very simply and also give us quick tools which we could use in our daily activities. He is versatile enough to meet the changing demands of the organisation and develop new training plans to meet our requirements. He is passionate about ensuring that we improve the way we use Excel. Everyone benefitted from the training program."
+              </p>
+              <div class="mt-4">
+                <h5 class="fw-bold mb-1" style="color: #002244;">Seema Prem</h5>
+                <p class="text-muted mb-0">Co Founder - FIA Global</p>
+              </div>
+            </div>
           </div>
 
         </div>
 
         <!-- Navigation Buttons -->
         <div class="d-flex justify-content-center mt-4 gap-3">
-          <button class="btn btn-outline-primary rounded-circle" style="width: 40px; height: 40px;">
+          <button id="testimonial-prev" class="btn btn-outline-primary rounded-circle" style="width: 40px; height: 40px;">
             <i class="fas fa-chevron-left"></i>
           </button>
-          <button class="btn btn-outline-primary rounded-circle" style="width: 40px; height: 40px;">
+          <button id="testimonial-next" class="btn btn-outline-primary rounded-circle" style="width: 40px; height: 40px;">
             <i class="fas fa-chevron-right"></i>
           </button>
         </div>
@@ -1103,6 +1156,44 @@
     </div>
   </div>
 </section>
+<script>
+// Testimonial Carousel Functionality
+(function() {
+  const testimonials = document.querySelectorAll('#testimonial-content .testimonial-item');
+  let current = 0;
+
+  function showTestimonial(next) {
+    if (next === current) return;
+    const prev = current;
+    testimonials[prev].classList.remove('active');
+    testimonials[prev].classList.add('fade-out');
+    testimonials[next].classList.add('fade-in');
+    testimonials[next].classList.add('active');
+
+    setTimeout(() => {
+      testimonials[prev].classList.remove('fade-out');
+      testimonials[next].classList.remove('fade-in');
+      current = next;
+    }, 500); // match the CSS transition duration
+  }
+
+  document.getElementById('testimonial-prev').addEventListener('click', function() {
+    let next = (current - 1 + testimonials.length) % testimonials.length;
+    showTestimonial(next);
+  });
+
+  document.getElementById('testimonial-next').addEventListener('click', function() {
+    let next = (current + 1) % testimonials.length;
+    showTestimonial(next);
+  });
+
+  // Initialize
+  testimonials.forEach((item, i) => {
+    if (i === 0) item.classList.add('active');
+    else item.classList.remove('active');
+  });
+})();
+</script>
 
     <div id="footer-include"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
