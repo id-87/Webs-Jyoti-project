@@ -9,60 +9,64 @@
 </head>
 <body>
   <div id="navbar"></div>
+
   <main class="main-content">
     <header>
       <h1>Meet Our Trainers</h1>
+      <p>Contact: +91-8802000175</p>
     </header>
 
     <div class="trainers-container">
+      
       <div class="trainer-card">
         <img src="https://websjyoti.com/images/hirdesh.jpg" alt="Hirdesh Bhardwaj">
         <h2>Hirdesh Bhardwaj</h2>
+        <p>Location: Delhi NCR, Gurgaon, Noida, Ghaziabad, Meerut, Kota</p>
         <p>17+ Years Experience in Excel, VBA, SQL & Power BI</p>
         <p>Author | Corporate Trainer | Data Analytics Expert</p>
       </div>
+
+      
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Ujjwal Garg"><h2>Ujjwal Garg</h2><p>Location: Agra</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Kishore Kumar"><h2>Kishore Kumar</h2><p>Location: Raipur</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Akshat Dubey"><h2>Akshat Dubey</h2><p>Location: Bhopal</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Sanskar Singh"><h2>Sanskar Singh</h2><p>Location: Indore</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Bhavendra Singh"><h2>Bhavendra Singh</h2><p>Location: Jodhpur</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Gurpreet Singh"><h2>Gurpreet Singh</h2><p>Location: Bhatinda</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Mahesh Gutalkar"><h2>Mahesh Gutalkar</h2><p>Location: Pune</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Brijesh Kumar Chaurasia"><h2>Brijesh Kumar Chaurasia</h2><p>Location: Azamgarh</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Sangram Singh"><h2>Sangram Singh</h2><p>Location: Lucknow</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Birendra Goswami"><h2>Birendra Goswami</h2><p>Location: Patna</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Manish"><h2>Manish</h2><p>Location: Ghorakpur</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Sushil"><h2>Sushil (I-CONS COMPUTERS)</h2><p>Location: Rohtak (Karnal + Hisar)</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Mayank Goel"><h2>Mayank Goel</h2><p>Location: Bareilly</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Varinder"><h2>Varinder (Amiras)</h2><p>Location: Ludhiana</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Manoj"><h2>Manoj</h2><p>Location: Guwahati</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Rizwan Shaikh"><h2>Rizwan Shaikh</h2><p>Location: Gandhinagar</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Shubham Nathani"><h2>Shubham Nathani</h2><p>Location: Chittorgarh</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Parul Singh"><h2>Parul Singh</h2><p>Location: Kolkata</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Chandrababu R"><h2>Chandrababu R</h2><p>Location: Bangalore</p></div>
+      <div class="trainer-card"><img src="https://via.placeholder.com/200" alt="Ismail Chalil"><h2>Ismail Chalil</h2><p>Location: Bangalore</p></div>
     </div>
   </main>
+
   <div id="footer"></div>
 
+ 
   <script>
-    // Load navbar
     fetch('navbar.html')
       .then(res => res.text())
       .then(data => {
         document.getElementById('navbar').innerHTML = data;
       });
 
-    // Load footer
     fetch('footer.html')
       .then(res => res.text())
       .then(data => {
         document.getElementById('footer').innerHTML = data;
       });
   </script>
-  <script>
-      function includeHTML() {
-        var z, i, elmnt, file, xhttp;
-        z = document.querySelectorAll('[data-include-html]');
-        for (i = 0; i < z.length; i++) {
-          elmnt = z[i];
-          file = elmnt.getAttribute('data-include-html');
-          if (file) {
-            fetch(file)
-              .then(response => response.text())
-              .then(data => {
-                elmnt.innerHTML = data;
-                elmnt.removeAttribute('data-include-html');
-                includeHTML();
-              });
-            return;
-          }
-        }
-      }
-      document.getElementById('navbar-include').setAttribute('data-include-html', 'navbar.html');
-      document.getElementById('footer-include').setAttribute('data-include-html', 'footer.html');
-      includeHTML();
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
