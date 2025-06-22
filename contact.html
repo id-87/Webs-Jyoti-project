@@ -24,14 +24,14 @@
     <style>
       body {
         font-family: "Inter", sans-serif;
-        background: #e5e7eb;
+        background: #ffffff;
       }
 
       .contact-wrapper {
         max-width: 1100px;
         margin: 50px auto;
         padding: 30px;
-        background: #fff;
+        background: #ffffff;
         border-radius: 20px;
         box-shadow: 0 2px 16px rgba(0, 0, 0, 0.05);
       }
@@ -108,10 +108,15 @@
           flex-direction: column;
         }
       }
+      .page {
+
+        background-color: rgb(247, 243, 243);
+      }
     </style>
   </head>
   <body>
-    <div id="navbar-include"></div>
+    <div class="page">
+      <div id="navbar-include"></div>
     <div class="container px-3 px-md-4">
       <div class="contact-wrapper">
         <!-- Header -->
@@ -290,6 +295,7 @@
       </div>
     </div>
     <div id="footer-include"></div>
+  </div>
 
     <script>
       function includeHTML() {
