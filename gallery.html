@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gallery | WJ Corporate Training</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .gallery-section {
+      background: #f8fafd;
+      padding: 60px 0 40px 0;
+      min-height: 100vh;
+    }
+    .gallery-title {
+      text-align: center;
+      font-size: 2.2rem;
+      color: #1976d2;
+      font-weight: 700;
+      margin-bottom: 40px;
+      letter-spacing: 1px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .gallery-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(25, 118, 210, 0.08), 0 1.5px 4px rgba(34,34,59,0.04);
+      padding: 0 0 24px 0;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      min-height: 320px;
+      justify-content: flex-start;
+      align-items: flex-start;
+      overflow: hidden;
+    }
+    .gallery-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 8px 32px rgba(25, 118, 210, 0.12), 0 2px 8px rgba(34,34,59,0.06);
+    }
+    .gallery-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+      border-bottom: 1px solid #e8f0fe;
+      display: block;
+      background: #f0f4f8;
+    }
+    .gallery-card-content {
+      padding: 24px 24px 0 24px;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .gallery-card h3 {
+      font-size: 1.2rem;
+      color: #1976d2;
+      margin-bottom: 10px;
+      font-weight: 700;
+      margin-top: 0;
+    }
+    .gallery-card p {
+      color: #5f6368;
+      font-size: 1.05rem;
+      margin-bottom: 0;
+    }
+    @media (max-width: 600px) {
+      .gallery-section {
+        padding: 40px 5px 20px 5px;
+      }
+      .gallery-grid {
+        gap: 18px;
+      }
+      .gallery-card {
+        min-height: 180px;
+      }
+      .gallery-title {
+        font-size: 1.3rem;
+      }
+      .gallery-img {
+        height: 120px;
+      }
+      .gallery-card-content {
+        padding: 14px 10px 0 10px;
+      }
+    }
+
+    .lightbox-modal {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(25, 118, 210, 0.85);
+      backdrop-filter: blur(2px);
+      transition: opacity 0.2s;
+    }
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 80vh;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(25, 118, 210, 0.18);
+      background: #fff;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      color: #fff;
+      font-size: 2.5rem;
+      font-weight: 700;
+      cursor: pointer;
+      z-index: 10001;
+      background: rgba(25, 118, 210, 0.2);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-close:hover {
+      background: rgba(25, 118, 210, 0.5);
+    }
+    .lightbox-prev, .lightbox-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: rgba(25, 118, 210, 0.3);
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-prev:hover, .lightbox-next:hover {
+      background: rgba(25, 118, 210, 0.7);
+    }
+    .lightbox-prev {
+      left: 40px;
+    }
+    .lightbox-next {
+      right: 40px;
+    }
+    @media (max-width: 600px) {
+      .lightbox-img {
+        max-width: 98vw;
+        max-height: 60vh;
+      }
+      .lightbox-prev, .lightbox-next {
+        width: 38px;
+        height: 38px;
+        font-size: 1.7rem;
+        left: 10px;
+        right: 10px;
+      }
+      .lightbox-close {
+        top: 10px;
+        right: 16px;
+        width: 38px;
+        height: 38px;
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+  <section class="gallery-section">
+    <h2 class="gallery-title">Training Highlights from Our Pan India Sessions</h2>
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Cards start -->
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/paras-day2.webp" alt="Soft Skills Training at Paras Dairy Ghaziabad">
+        <div class="gallery-card-content">
+          <h3>Soft Skills Training at Paras Dairy Ghaziabad</h3>
+          <p>Paras Dairy, Ghaziabad</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/vrsfood1.webp" alt="Advanced Excel Training conducted at Paras Dairy Pan India">
+        <div class="gallery-card-content">
+          <h3>Advanced Excel Training conducted at Paras Dairy Pan India</h3>
+          <p>Paras Dairy Pan India</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/IMG-20250524-WA0031.webp" alt="Corporate Training on Advanced Excel at Del Monte Foods Kolkata">
+        <div class="gallery-card-content">
+          <h3>Corporate Training on Advanced Excel at Del Monte Foods Kolkata</h3>
+          <p>Del Monte Foods Kolkata</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/ggn1000355836.webp" alt="Corporate Training at Del Monte Foods, Gurugram - Haryana">
+        <div class="gallery-card-content">
+          <h3>Corporate Training at Del Monte Foods, Gurugram - Haryana</h3>
+          <p>Del Monte Foods, Gurugram - Haryana</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/mumb1000d35d5912.webp" alt="Corporate Training at Del Monte Foods Mumbai - Maharashtra">
+        <div class="gallery-card-content">
+          <h3>Corporate Training at Del Monte Foods Mumbai - Maharashtra</h3>
+          <p>Del Monte Foods Mumbai - Maharashtra</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/IMG-20250524-WA0031.webp" alt="Corporate Training on Advanced Excel at Del Monte Foods Kolkata">
+        <div class="gallery-card-content">
+          <h3>Corporate Training on Advanced Excel at Del Monte Foods Kolkata</h3>
+          <p>Del Monte Foods Kolkata</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/bangIMG-20250517-WA0038.webp" alt="Corporate Training at Del Monte Foods, Bangalore - Karnataka">
+        <div class="gallery-card-content">
+          <h3>Corporate Training at Del Monte Foods, Bangalore - Karnataka</h3>
+          <p>Del Monte Foods, Bangalore - Karnataka</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/softskillsghz.webp" alt="Soft Skills Training at Paras Dairy Ghaziabad">
+        <div class="gallery-card-content">
+          <h3>Soft Skills Training at Paras Dairy Ghaziabad</h3>
+          <p>Paras Dairy Ghaziabad</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/chd-1000355894.webp" alt="Excel Training at Del Monte Foods Chandigarh">
+        <div class="gallery-card-content">
+          <h3>Excel Training at Del Monte Foods Chandigarh</h3>
+          <p>Del Monte Foods Chandigarh</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/agra-excel.webp" alt="Corporate Training at Shriram fertilizers & chemicals, Agra - Uttar Pradesh">
+        <div class="gallery-card-content">
+          <h3>Corporate Training at Shriram fertilizers & chemicals, Agra - Uttar Pradesh</h3>
+          <p>Shriram fertilizers & chemicals, Agra - Uttar Pradesh</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/azamgarh-excel.webp" alt="Corporate Training at Shriram fertilizers & chemicals, Azamgarh - Uttar Pradesh">
+        <div class="gallery-card-content">
+          <h3>Corporate Training at Shriram fertilizers & chemicals, Azamgarh - Uttar Pradesh</h3>
+          <p>Shriram fertilizers & chemicals, Azamgarh Uttar Pradesh</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/bareily-excel.webp" alt="Excel Training conducted at Shriram fertilizers & chemicals Bareilly">
+        <div class="gallery-card-content">
+          <h3>Excel Training conducted at Shriram fertilizers & chemicals Bareilly</h3>
+          <p>Shriram fertilizers & chemicals, Bareilly - Uttar Pradesh</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/bhatinda-excel.webp" alt="Excel Training conducted at Shriram fertilizers & chemicals Bhatinda by Webs Jyoti">
+        <div class="gallery-card-content">
+          <h3>Excel Training conducted at Shriram fertilizers & chemicals Bhatinda by Webs Jyoti</h3>
+          <p>Shriram fertilizers & chemicals, Bhatinda - Punjab</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/bhopal-excel.webp" alt="Excel Training conducted at Shriram fertilizers & chemicals Bhopal">
+        <div class="gallery-card-content">
+          <h3>Excel Training conducted at Shriram fertilizers & chemicals Bhopal</h3>
+          <p>DCM Shriram fertilizers & chemicals, Bhopal - Madhya Pradesh</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/chittor-excel.webp" alt="Excel Training conducted at Shriram fertilizers & chemicals Chittorgarh">
+        <div class="gallery-card-content">
+          <h3>Excel Training conducted at Shriram fertilizers & chemicals Chittorgarh</h3>
+          <p>DCM Shriram fertilizers, Chittorgarh - Rajasthan</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/gandhinagar-excel.webp" alt="Excel Training conducted at Shriram fertilizers & chemicals Gandhinagar">
+        <div class="gallery-card-content">
+          <h3>Excel Training conducted at Shriram fertilizers & chemicals Gandhinagar</h3>
+          <p>DCM Shriram Gandhinagar - Gujarat</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/indore-excel.webp" alt="Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Indore - Madhya Pradesh">
+        <div class="gallery-card-content">
+          <h3>Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Indore - Madhya Pradesh</h3>
+          <p>DCM Shriram Fertilizers, Indore - Madhya Pradesh</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/jaipur-excel.webp" alt="Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Jaipur Rajassthan">
+        <div class="gallery-card-content">
+          <h3>Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Jaipur Rajassthan</h3>
+          <p>DCM Shriram, RO Jaipur - Rajasthan</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/jodhpur-ecel.webp" alt="Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Jodhpur - Rajassthan">
+        <div class="gallery-card-content">
+          <h3>Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Jodhpur - Rajassthan</h3>
+          <p>Shriram Fertilizers, Jodhpur - Jaipur</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/kolkata-excel.webp" alt="Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Kolkata - West Bengal">
+        <div class="gallery-card-content">
+          <h3>Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Kolkata - West Bengal</h3>
+          <p>Shriram Fertilizers & chemicals, Kolkata - West Bengal</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/kota-excel.webp" alt="Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Kota Rajasthan">
+        <div class="gallery-card-content">
+          <h3>Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Kota Rajasthan</h3>
+          <p>Shriram Fertilizers & chemicals, Kota - Rajasthan</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/lucknow-excel.webp" alt="Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Lucknow - Uttar Pradesh">
+        <div class="gallery-card-content">
+          <h3>Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Lucknow - Uttar Pradesh</h3>
+          <p>Shriram Fertilizers, Lucknow - Uttar Pradesh</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/ludhiana-excel.webp" alt="Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Ludhiana - Punjab">
+        <div class="gallery-card-content">
+          <h3>Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Ludhiana - Punjab</h3>
+          <p>Shriram Fertilizers & chemicals, Ludhiana - Punjab</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/pune-excel.webp" alt="Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Pune - Maharashtra">
+        <div class="gallery-card-content">
+          <h3>Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Pune - Maharashtra</h3>
+          <p>DCM Shriram Fertilizers & chemicals, Pune - Maharashtra</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/raipur-excel.webp" alt="Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Raipur - Chhattisgarh">
+        <div class="gallery-card-content">
+          <h3>Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Raipur - Chhattisgarh</h3>
+          <p>Shriram Fertilizers, Raipur - Chhattisgarh</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/rohtak-excel.webp" alt="Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Rohtak Haryana">
+        <div class="gallery-card-content">
+          <h3>Corporate training Session on Advanced Excel conducted at DCM Shriram Fertilizers, Rohtak Haryana</h3>
+          <p>Shriram Fertilizers & chemicals, Rohtak - Haryana</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/IMG-20250411-WA0161.webp" alt="Generative AI Training in Gurugram">
+        <div class="gallery-card-content">
+          <h3>Generative AI Training in Gurugram</h3>
+          <p>FIA Global</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/1742390236826.webp" alt="Corporate Session at Del Monte Foods Gurugram">
+        <div class="gallery-card-content">
+          <h3>Corporate Session at Del Monte Foods Gurugram</h3>
+          <p>Del Monte Foods Gurugram</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/1743164730328.webp" alt="Corporate Training conducted at Boston Scientific HO Gurugram & Pune">
+        <div class="gallery-card-content">
+          <h3>Corporate Training conducted at Boston Scientific HO Gurugram & Pune</h3>
+          <p>Boston Scientific</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/1742616880800.webp" alt="Corporate Training Conducted at CWE HQ Delhi">
+        <div class="gallery-card-content">
+          <h3>Corporate Training Conducted at CWE HQ Delhi</h3>
+          <p>CWE HQ Delhi</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/del-monte-foods.webp" alt="Corporate Training on Excel conducted for Del Monte Foods Gurugram">
+        <div class="gallery-card-content">
+          <h3>Corporate Training on Excel conducted for Del Monte Foods Gurugram</h3>
+          <p>Del Monte Foods Gurugram</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/fia-global-xl.webp" alt="Corporate Training conducted for Beumer India">
+        <div class="gallery-card-content">
+          <h3>Corporate Training conducted for Beumer India</h3>
+          <p>Beumer</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/eximiusventures.webp" alt="Corporate Training conducted at Eximius Ventures Gurugram">
+        <div class="gallery-card-content">
+          <h3>Corporate Training conducted at Eximius Ventures Gurugram</h3>
+          <p>Eximius Ventures Gurugram</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/pgs12.webp" alt="Corporate ssession on advanced excel & PPT conducted at PGS Partner Gurugram">
+        <div class="gallery-card-content">
+          <h3>Corporate ssession on advanced excel & PPT conducted at PGS Partner Gurugram</h3>
+          <p>PGS Partner</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/beumer-june-22unnamed.webp" alt="Corporate ssession on advanced excel & BI conducted at Beumer Gurugram">
+        <div class="gallery-card-content">
+          <h3>Corporate ssession on advanced excel & BI conducted at Beumer Gurugram</h3>
+          <p>Beumer</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/corp2.webp" alt="Corporate Training on PPT conducted at FIA Global Gurgaon">
+        <div class="gallery-card-content">
+          <h3>Corporate Training on PPT conducted at FIA Global Gurgaon</h3>
+          <p>FIA Global Gurgaon</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/1737802216346.webp" alt="Corporate Training at Eximius Ventures">
+        <div class="gallery-card-content">
+          <h3>Corporate Training at Eximius Ventures</h3>
+          <p>Eximius Ventures</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/IMG-20250124-WA0068.webp" alt="Corporate Training at Eximius Ventures">
+        <div class="gallery-card-content">
+          <h3>Corporate Training at Eximius Ventures</h3>
+          <p>Eximius Ventures</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/cwe-wroks.webp" alt="Training on PPT conducted at CWE HQ">
+        <div class="gallery-card-content">
+          <h3>Training on PPT conducted at CWE HQ</h3>
+          <p>CWE HQ</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/IMG-20250125-WA0068.webp" alt="Training on Excel conducted at Commander Works Engineers HQ">
+        <div class="gallery-card-content">
+          <h3>Training on Excel conducted at Commander Works Engineers HQ</h3>
+          <p>Commander Works Engineers</p>
+        </div>
+      </div>
+      <div class="gallery-card">
+        <img class="gallery-img" src="https://exceltraininggurgaon.in/optimizedimg/websjyoti-training1.webp" alt="Classroom Training at Webs Jyoti Gurugram">
+        <div class="gallery-card-content">
+          <h3>Classroom Training at Webs Jyoti Gurugram</h3>
+          <p>Webs Jyoti Gurugram</p>
+        </div>
+      </div>
+      <!-- Cards end -->
+    </div>
+  </section>
+  <div id="footer"></div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightboxModal" class="lightbox-modal" style="display:none;">
+    <span class="lightbox-close" id="lightboxClose">&times;</span>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="Expanded Gallery Image">
+    <button class="lightbox-prev" id="lightboxPrev">&#10094;</button>
+    <button class="lightbox-next" id="lightboxNext">&#10095;</button>
+  </div>
+
+  <script>
+    // Load navbar
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      });
+    // Load footer
+    fetch('footer.html')
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById('footer').innerHTML = data;
+      });
+
+    // Lightbox functionality
+    const galleryImages = Array.from(document.querySelectorAll('.gallery-img'));
+    let currentImgIndex = 0;
+    const lightboxModal = document.getElementById('lightboxModal');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+
+    function openLightbox(index) {
+      currentImgIndex = index;
+      lightboxImg.src = galleryImages[index].src;
+      lightboxImg.alt = galleryImages[index].alt;
+      lightboxModal.style.display = 'flex';
+    }
+    function closeLightbox() {
+      lightboxModal.style.display = 'none';
+    }
+    function showPrev() {
+      currentImgIndex = (currentImgIndex - 1 + galleryImages.length) % galleryImages.length;
+      lightboxImg.src = galleryImages[currentImgIndex].src;
+      lightboxImg.alt = galleryImages[currentImgIndex].alt;
+    }
+    function showNext() {
+      currentImgIndex = (currentImgIndex + 1) % galleryImages.length;
+      lightboxImg.src = galleryImages[currentImgIndex].src;
+      lightboxImg.alt = galleryImages[currentImgIndex].alt;
+    }
+    // Attach click listeners after DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      const imgs = document.querySelectorAll('.gallery-img');
+      imgs.forEach((img, idx) => {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', () => openLightbox(idx));
+      });
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightboxPrev.addEventListener('click', showPrev);
+      lightboxNext.addEventListener('click', showNext);
+      // Close on overlay click
+      lightboxModal.addEventListener('click', function(e) {
+        if (e.target === lightboxModal) closeLightbox();
+      });
+      // Keyboard navigation
+      document.addEventListener('keydown', function(e) {
+        if (lightboxModal.style.display === 'flex') {
+          if (e.key === 'ArrowLeft') showPrev();
+          if (e.key === 'ArrowRight') showNext();
+          if (e.key === 'Escape') closeLightbox();
+        }
+      });
+    });
+  </script>
+</body>
+</html> 
