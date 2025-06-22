@@ -342,6 +342,31 @@
       .then(data => {
         document.getElementById('footer').innerHTML = data;
       });
+
   </script>
+  <script>
+      function includeHTML() {
+        var z, i, elmnt, file, xhttp;
+        z = document.querySelectorAll('[data-include-html]');
+        for (i = 0; i < z.length; i++) {
+          elmnt = z[i];
+          file = elmnt.getAttribute('data-include-html');
+          if (file) {
+            fetch(file)
+              .then(response => response.text())
+              .then(data => {
+                elmnt.innerHTML = data;
+                elmnt.removeAttribute('data-include-html');
+                includeHTML();
+              });
+            return;
+          }
+        }
+      }
+      document.getElementById('navbar-include').setAttribute('data-include-html', 'navbar.html');
+      document.getElementById('footer-include').setAttribute('data-include-html', 'footer.html');
+      includeHTML();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html> 
